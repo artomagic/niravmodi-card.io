@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nirav Modi | Digital Business Card</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --fs-lg  : 1.75rem;
+            --fs-md  : 0.875rem;
+            --fs-sm  : 0.7rem;
+            --gold        : #3A3A3A;
+            --gold-dark   : #1A1A1A;
+            --gold-mid    : #888888;
+            --gold-light  : #E0E0E0;
+            --gold-pale   : #F5F5F5;
+            --black       : #1A1A1A;
+            --black-soft  : #444444;
+            --white       : #FFFFFF;
+            --radius      : 26px;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', sans-serif;
+            font-size: var(--fs-md);
+            background: var(--gold-pale);
+            color: var(--black);
+            display: flex;
+            justify-content: center;
+            padding: 40px 15px;
+            -webkit-font-smoothing: antialiased;
+        }
+        .card {
+            background: var(--white);
+            width: 100%;
+            max-width: 400px;
+            border-radius: var(--radius);
+            box-shadow: 0 20px 60px rgba(26,16,4,0.12);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        .header-visual {
+            position: relative;
+            height: 250px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+        }
+        .bg-rect {
+            position: absolute;
+            top: 40px; left: 20px; right: 20px; bottom: 0;
+            background: var(--gold-light);
+            border-radius: 18px 18px 0 0;
+            z-index: 1;
+        }
+        .cutout-photo {
+            position: relative;
+            z-index: 2;
+            height: 110%;
+            object-fit: contain;
+            margin-bottom: -1px;
+            padding-top: 40px;
+        }
+
+        /* ── Profile section ── */
+        .profile {
+            padding: 24px 25px 10px;
+            text-align: center;
+        }
+        .name-row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 6px;
+        }
+        .company-logo { width: 30px; height: 30px; }
+        .hero-name {
+            font-size: var(--fs-lg);
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            color: var(--black);
+        }
+        .designation {
+            font-size: var(--fs-sm);
+            font-weight: 700;
+            color: var(--gold);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            margin-bottom: 4px;
+        }
+        .company-name {
+            font-size: var(--fs-md);
+            font-weight: 600;
+            color: var(--black-soft);
+            margin-bottom: 14px;
+        }
+
+        /* Tags directly under company name */
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        .tag {
+            padding: 6px 14px;
+            background: var(--gold-light);
+            border-radius: 6px;
+            font-size: var(--fs-sm);
+            font-weight: 700;
+            color: var(--gold-dark);
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+        }
+
+        /* Contact icons */
+        .contact-strip {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 0;
+        }
+        .circle-icon {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            background: var(--gold-light);
+            color: var(--black);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            font-size: var(--fs-md);
+            transition: background 0.25s, color 0.25s, transform 0.25s;
+            cursor: pointer;
+        }
+        .circle-icon:hover {
+            background: var(--gold);
+            color: var(--white);
+            transform: translateY(-3px);
+        }
+
+        /* Divider */
+        .section-divider {
+            height: 1px;
+            background: var(--gold-light);
+            margin: 0 25px;
+        }
+
+        /* Card body — left-aligned content */
+        .card-body { padding: 0 28px 38px; }
+
+        .label {
+            font-size: var(--fs-sm);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: var(--gold-dark);
+            margin: 14px 0 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .label::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--gold-light);
+        }
+
+        .bio-text {
+            font-size: var(--fs-md);
+            line-height: 1.65;
+            color: var(--black-soft);
+            text-align: left;
+        }
+
+        .contact-text-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .text-line {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            text-decoration: none;
+            color: var(--black-soft);
+            font-size: var(--fs-md);
+            line-height: 1.5;
+            text-align: left;
+            transition: color 0.2s;
+        }
+        .text-line:hover { color: var(--gold); }
+        .text-line i {
+            color: var(--gold);
+            width: 14px;
+            margin-top: 3px;
+            text-align: center;
+            flex-shrink: 0;
+        }
+
+        .btn-stack {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 26px;
+        }
+        .action-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            background: var(--gold);
+            color: var(--white);
+            padding: 15px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: var(--fs-sm);
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            border: none;
+            cursor: pointer;
+            transition: background 0.25s, transform 0.2s;
+        }
+        .action-link:hover { background: var(--gold-dark); transform: scale(1.02); }
+
+        .footer {
+            background: var(--gold-pale);
+            border-top: 1px solid var(--gold-light);
+            padding: 22px 25px;
+            text-align: center;
+        }
+        .share-actions {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            align-items: center;
+        }
+        .action-btn {
+            font-size: var(--fs-sm);
+            font-weight: 700;
+            color: var(--black-soft);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            background: none;
+            border: none;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+        .action-btn:hover { color: var(--gold); }
+        .divider { color: var(--gold-mid); }
+
+        .modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(26,16,4,0.55);
+            backdrop-filter: blur(8px);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+        .modal-content {
+            background: var(--white);
+            padding: 40px;
+            border-radius: 22px;
+            text-align: center;
+            max-width: 280px;
+        }
+        .modal-content h3 {
+            font-size: var(--fs-md);
+            font-weight: 700;
+            color: var(--black);
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+        }
+    </style>
+</head>
+<body>
+<div class="card">
+
+    <!-- Photo header -->
+    <div class="header-visual">
+        <div class="bg-rect"></div>
+        <img src="images/suit_photo1.png" alt="Nirav Modi" class="cutout-photo">
+    </div>
+
+    <!-- Profile: name → designation → company → tags → icons -->
+    <div class="profile">
+        <div class="name-row">
+            <img src="images/logo1.png" alt="Logo" class="company-logo">
+            <h1 class="hero-name">Nirav Modi</h1>
+        </div>
+        <p class="designation">LLM &nbsp;|&nbsp; FCIArb (London)</p>
+        <p class="company-name">NR Modi &amp; Associates</p>
+
+        <!-- Tags under company name -->
+        <div class="tags">
+            <span class="tag">Advocate</span>
+            <span class="tag">Legal Advisor</span>
+            <span class="tag">Arbitrator</span>
+        </div>
+
+        <!-- Four contact icons -->
+        <div class="contact-strip">
+            <a href="tel:+919898021102" class="circle-icon"><i class="fa-solid fa-phone"></i></a>
+            <a href="https://wa.me/919898021102" class="circle-icon"><i class="fa-brands fa-whatsapp"></i></a>
+            <a id="icon-email" class="circle-icon"><i class="fa-solid fa-envelope"></i></a>
+            <a href="https://maps.app.goo.gl/E4FY8zNjbyTfFxDx8" target="_blank" class="circle-icon"><i class="fa-solid fa-location-dot"></i></a>
+        </div>
+    </div>
+
+    <!-- Body: bio + contact details (left-aligned) -->
+    <div class="card-body">
+
+        <div class="label">About</div>
+        <p class="bio-text">
+            Certified Arbitrator and Fellow of Chartered Institute of Arbitrators, London. Former Additional Public Prosecutor and Asst. Government Pleader, Government of Gujarat.
+        </p>
+
+        <div class="label">Contact</div>
+        <div class="contact-text-group">
+            <a href="tel:+919898021102" class="text-line">
+                <i class="fa-solid fa-phone"></i>
+                <span>+91 98980 21102</span>
+            </a>
+            <a id="link-email1" class="text-line">
+                <i class="fa-solid fa-envelope"></i>
+                <span>niravmodiadvo&#64;gmail&#46;com</span>
+            </a>
+            <a id="link-email2" class="text-line">
+                <i class="fa-solid fa-envelope"></i>
+                <span>nrmodiassociates&#64;gmail&#46;com</span>
+            </a>
+            <a href="https://maps.app.goo.gl/E4FY8zNjbyTfFxDx8" target="_blank" class="text-line">
+                <i class="fa-solid fa-location-dot"></i>
+                <span>B-49, Amidhara Society, Old RTO Road, Bharuch-392001, Gujarat, India.</span>
+            </a>
+        </div>
+
+        <div class="btn-stack">
+            <button class="action-link" onclick="downloadVCF()">
+                <i class="fa-solid fa-user-plus"></i>
+                <span>Save Contact</span>
+            </button>
+            <a id="btn-email-cta" class="action-link">
+                <i class="fa-solid fa-envelope"></i>
+                <span>Email Nirav Modi</span>
+            </a>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="share-actions">
+            <button class="action-btn" onclick="copyLink()">Copy Link</button>
+        </div>
+    </footer>
+</div>
+
+<div id="qrModal" class="modal" onclick="toggleModal()">
+    <div class="modal-content">
+        <h3>Scan to Save</h3>
+        <div style="background:var(--gold-pale);width:180px;height:180px;margin:auto;border-radius:12px;display:flex;align-items:center;justify-content:center;">
+            <i class="fa-solid fa-qrcode" style="font-size:5rem;color:var(--gold);"></i>
+        </div>
+    </div>
+</div>
+
+<script>
+    (function () {
+        var p1  = 'niravmodiadvo';
+        var p2  = 'nrmodiassociates';
+        var dom = 'gmail' + '.' + 'com';
+
+        var m1 = 'mailto:' + p1 + '@' + dom;
+        var m2 = 'mailto:' + p2 + '@' + dom;
+
+        var subject = encodeURIComponent('Enquiry | NR Modi & Associates');
+        var body    = encodeURIComponent('Dear Nirav Modi,\n\nI came across your digital business card and would like to get in touch with you.\n\nRegards,');
+
+        var ctaHref = m1 + '?subject=' + subject + '&body=' + body;
+
+        document.getElementById('icon-email').href    = m1;
+        document.getElementById('link-email1').href   = m1;
+        document.getElementById('link-email2').href   = m2;
+        document.getElementById('btn-email-cta').href = ctaHref;
+    })();
+
+    function toggleModal() {
+        var m = document.getElementById('qrModal');
+        m.style.display = m.style.display === 'flex' ? 'none' : 'flex';
+    }
+
+    function copyLink() {
+        navigator.clipboard.writeText(window.location.href);
+        alert('Link copied!');
+    }
+
+    function downloadVCF() {
+        var e = 'niravmodiadvo' + '@' + 'gmail.com';
+        var vcard = [
+            'BEGIN:VCARD',
+            'VERSION:3.0',
+            'FN:Nirav Modi',
+            'ORG:NR Modi & Associates',
+            'TITLE:Advocate | B.Com | LLM | FCIArb (London)',
+            'TEL;TYPE=CELL:+919898021102',
+            'EMAIL:' + e,
+            'URL:https://nrmodiassociates.com',
+            'ADR:;;B-49 Amidhara Society Old RTO Road;Bharuch;Gujarat;392001;India',
+            'END:VCARD'
+        ].join('\n');
+        var blob = new Blob([vcard], { type: 'text/vcard' });
+        var url  = window.URL.createObjectURL(blob);
+        var a    = document.createElement('a');
+        a.href     = url;
+        a.download = 'NiravModi.vcf';
+        a.click();
+        window.URL.revokeObjectURL(url);
+    }
+</script>
+</body>
+</html>
